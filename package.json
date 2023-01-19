@@ -1,0 +1,32 @@
+{
+  "name": "client-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "subscribe.js",
+  "dependencies": {
+    "@elastic/elasticsearch": "^7.10.0",
+    "@eventstore/db-client": "^1.2.1",
+    "aws-sdk": "^2.920.0",
+    "dotenv": "^8.2.0",
+    "node-eventstore-client": "^0.2.18",
+    "uuid": "^7.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node subscribe.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eits-lafargeholcim/evenstore-transporter.git"
+  },
+  "keywords": [
+    "eventstore"
+  ],
+  "author": "Jorge Aldao",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eits-lafargeholcim/evenstore-transporter/issues"
+  },
+  "homepage": "https://github.com/eits-lafargeholcim/evenstore-transporter#readme"
+}
