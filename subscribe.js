@@ -1,4 +1,5 @@
 // Subscribe to all new events on the $all stream. Filter out any which aren"t about "user" aggregates.
+//Esta es una linea de prueba
 const {
   EventStoreDBClient,
   jsonEvent,
