@@ -17,13 +17,6 @@ AWS.config.update({
   region: 'eu-west-1'
 });
 
-// Create an SQS service object
-var sqs = new AWS.SQS({
-  apiVersion: '2012-11-05'
- 
-});
-
-
 const client = require("node-eventstore-client")
 
 
@@ -54,18 +47,17 @@ const sendMessageSNS = (e) => {
   //console.log("metadata", e.event.metadata);
   var params = {
     MessageAttributes: {
-      "SalesArea": {
+      "Message": {
         DataType: "String",
-        StringValue: e.event.metadata.salesOrg
+        StringValue: evtData
       }
     },
-    MessageGroupId: "trucks-emea",  // Required for FIFO queues
+    MessageGroupId: "notifications-trips",  // Required for FIFO queues
     Message: JSON.stringify(evtData), /* required */
-    TopicArn: 'arn:aws:sns:eu-west-1:487540052268:test-trucks.fifo'
+    TopicArn: 'arn:aws:sns:eu-west-1:487540052268:ZondaMail.fifo'
   };
   // Create promise and SNS service object
   var publishTextPromise = new AWS.SNS({apiVersion: '2010-03-31'}).publish(params).promise();
-  console.log("salesArea", e.event.metadata.salesAreaId)
   //console.log("EventoStr", JSON.stringify(e.event));
   //console.log("EventoFull", JSON.stringify(e));
 
@@ -89,35 +81,7 @@ const eventAppeared = (e) => {
       var evtData = e.event.data;
       console.log(e.event)
       sendMessageSNS(e)
-    // // Event objet built for Elasticsearch injection
-    //   var params = {
 
-    //       MessageAttributes: {
-    //         "Stream": {
-    //           DataType: "String",
-    //           StringValue: e.event.streamId
-    //         },
-    //     //      "Author": {
-    //     //        DataType: "String",
-    //     //        StringValue: "John Grisham"
-    //     //      },
-    //     //      "WeeksOn": {
-    //     //        DataType: "Number",
-    //     //        StringValue: "6"
-    //     //      }
-    //       },
-    //       MessageBody: JSON.stringify(evtData),
-    //       MessageDeduplicationId: e.event.id,  // Required for FIFO queues
-    //       MessageGroupId: "trucks-emea",  // Required for FIFO queues
-    //       QueueUrl: "https://sqs.eu-west-1.amazonaws.com/487540052268/logistics-databackbone.fifo"
-    //   };
-    //   sqs.sendMessage(params, function(err, data) {
-    //     if (err) {
-    //       console.log("Error", err);
-    //     } else {
-    //       console.log("Success", data.MessageId);
-    //     }
-    //   });
   }
 }
 
