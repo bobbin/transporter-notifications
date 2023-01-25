@@ -46,12 +46,6 @@ const sendMessageSNS = (e) => {
   evtData.eventType = e.event.type;
   //console.log("metadata", e.event.metadata);
   var params = {
-    MessageAttributes: {
-      "Message": {
-        DataType: "String",
-        StringValue: evtData
-      }
-    },
     MessageGroupId: "notifications-trips",  // Required for FIFO queues
     Message: JSON.stringify(evtData), /* required */
     TopicArn: 'arn:aws:sns:eu-west-1:487540052268:ZondaMail.fifo'
